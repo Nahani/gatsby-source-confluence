@@ -28,13 +28,13 @@ exports.sourceNodes = async (
   // Get data from Confluence
   const response = await search(pluginOptions)
 
-  const { hostname } = pluginOptions;
+  const { hostname, auth } = pluginOptions;
 
   const baseUrl = response._links.base
   const results = response.results.filter(result => result.type === 'page')
 
   // Parse into nodes and add to GraphQL schema
-  const nodes = results.map(pageResult => formatPageNode(createNodeHelperFunctions, pageResult, baseUrl, hostname, pluginOptions.auth)
+  const nodes = results.map(pageResult => formatPageNode(createNodeHelperFunctions, pageResult, baseUrl, hostname, auth)
   )
 
   nodes.forEach(node => {
